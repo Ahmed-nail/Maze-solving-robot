@@ -1,4 +1,5 @@
 # Pharmacy Robot Project
+![Robot](Images/robot.jpg)
 
 ## Overview
 This project represents a prototype of an automated pharmacy robot designed to store and dispense medicine boxes from organized shelves. The system uses a robotic movement mechanism that can move across different positions to locate the requested medicine, pick it up, and deliver it to the user. The goal of this project is to simulate how automation and robotics can improve efficiency and accuracy in pharmacy operations.

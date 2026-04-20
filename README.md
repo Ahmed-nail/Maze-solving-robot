@@ -1,4 +1,4 @@
-
+![Robot](IMG_٢٠٢٦٠٤٢٠_١٢٠٦٥١.jpg)
 This project represents a prototype of an autonomous maze-solving robot designed to navigate through complex paths and avoid obstacles. The robot uses sensors to detect walls and make real-time decisions while moving.
 The goal of this project is to simulate how intelligent robotic systems can autonomously explore unknown environments and find optimal paths.
 

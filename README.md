@@ -1,4 +1,4 @@
-## Maze solving robot and fire detected
+no## Maze solving robot and fire detected
 
 ## componants
  
@@ -27,3 +27,5 @@ It can move alone without joystick because (ultrasonic sensor) and detected the 
 - John George Abdelmseih
 - Mohamed Mosad Elbana
 - Omar Abdelkarim Elrifay
+  
+## Under supervision of Dr/Marwa Elseddik

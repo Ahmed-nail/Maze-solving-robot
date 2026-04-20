@@ -1,0 +1,123 @@
+#include <ESP32Servo.h>
+
+
+#define speedl 25
+#define in1 26 
+#define in2 27
+#define in3 14
+#define in4 12
+#define speedr 13
+#define trigFront 18
+#define echoFront 19
+#define trigRight 15
+#define echoRight 21
+#define trigLeft 22
+#define echoLeft 4
+#define servoPin 32 
+#define flamePin 35
+#define buzzerPin 23
+
+Servo myServo;
+int servoPos = 90;    
+int servoStep = 2;    
+bool movingUp = true; 
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(speedl, OUTPUT); pinMode(in1, OUTPUT); pinMode(in2, OUTPUT);
+  pinMode(in3, OUTPUT); pinMode(in4, OUTPUT); pinMode(speedr, OUTPUT);
+  pinMode(trigFront, OUTPUT); pinMode(echoFront, INPUT);
+  pinMode(trigRight, OUTPUT); pinMode(echoRight, INPUT);
+  pinMode(trigLeft, OUTPUT);  pinMode(echoLeft, INPUT);
+  pinMode(flamePin, INPUT);
+  pinMode(buzzerPin, OUTPUT);
+  ESP32PWM::allocateTimer(0); 
+  myServo.setPeriodHertz(50); 
+  myServo.attach(servoPin, 500, 2400); 
+}
+
+void moveServo() {
+  if (movingUp) { servoPos += servoStep; if (servoPos >= 180) movingUp = false; }
+  else { servoPos -= servoStep; if (servoPos <= 0) movingUp = true; }
+  myServo.write(servoPos);
+}
+
+void smartDelay(int ms) {
+  unsigned long start = millis();
+  while (millis() - start < ms) { moveServo(); delay(15); }
+}
+
+long getDistance(int t, int e) {
+  digitalWrite(t, LOW); delayMicroseconds(2);
+  digitalWrite(t, HIGH); delayMicroseconds(10);
+  digitalWrite(t, LOW);
+  long duration = pulseIn(e, HIGH, 20000);
+  long distance = duration * 0.034 / 2;
+  return (distance <= 0) ? 400 : distance;
+}
+
+
+void forward() { digitalWrite(in1, HIGH); digitalWrite(in2, LOW); digitalWrite(in3, LOW); digitalWrite(in4, HIGH); analogWrite(speedl, 160); analogWrite(speedr, 140); }
+void stopp() { 
+  digitalWrite(in1, LOW); digitalWrite(in2, LOW); 
+  digitalWrite(in3, LOW); digitalWrite(in4, LOW); 
+  analogWrite(speedl, 0); analogWrite(speedr, 0); 
+}
+void turnRight() { digitalWrite(in1, HIGH); digitalWrite(in2, LOW); digitalWrite(in3, HIGH); digitalWrite(in4, LOW); analogWrite(speedl, 150); analogWrite(speedr, 150); }
+void turnLeft() { digitalWrite(in1, LOW); digitalWrite(in2, HIGH); digitalWrite(in3, LOW); digitalWrite(in4, HIGH); analogWrite(speedl, 150); analogWrite(speedr, 150); }
+void back() { digitalWrite(in1, LOW); digitalWrite(in2, HIGH); digitalWrite(in3, HIGH); digitalWrite(in4, LOW); analogWrite(speedl, 150); analogWrite(speedr, 150); }
+
+void loop() {
+  int flameStatus = digitalRead(flamePin);
+  
+  
+  Serial.print("Flame Sensor: "); Serial.println(flameStatus);
+
+  if (flameStatus == LOW) { 
+    stopp(); 
+    
+    Serial.println("!!! FIRE DETECTED - EMERGENCY STOP !!!");
+    
+
+    digitalWrite(buzzerPin, HIGH);
+    delay(100); 
+    digitalWrite(buzzerPin, LOW);
+    delay(100):
+   
+
+    moveServo(); 
+  } 
+  else {
+    
+    digitalWrite(buzzerPin, LOW);   
+    moveServo(); 
+
+    long f = getDistance(trigFront, echoFront);
+    if (f > 25) {
+      forward();
+    } else {
+      stopp(); 
+      smartDelay(400);
+      long r = getDistance(trigRight, echoRight);
+      smartDelay(50);
+      long l = getDistance(trigLeft, echoLeft);
+      
+      if (l > r && l > 20 && l < 400) { 
+        turnLeft(); 
+        smartDelay(600); 
+      }
+      else if (r > l && r > 20 && r < 400) { 
+        turnRight(); 
+        smartDelay(600); 
+      }
+      else { 
+        back(); 
+        smartDelay(500); 
+        turnRight(); 
+        smartDelay(500); 
+      }
+      stopp(); 
+      smartDelay(200);
+    }
+  }
+}

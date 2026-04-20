@@ -1,5 +1,9 @@
 ## Maze solving robot and fire detected
 
+## How to run code
+First check requirements folder to download the package that run esp32 Arduino ide.
+then you can able run code from code file.
+
 ## componants
  
 - 2 DC motor 2 wheels 

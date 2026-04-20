@@ -1,9 +1,9 @@
 *photo of the project*
 
-![Robot](IMG_٢٠٢٦٠٤٢٠_١٢٠٦٥١.jpg)
+![Robot](Media/IMG_٢٠٢٦٠٤٢٠_١٢٠٦٥١.jpg)
 
 *video of the project*
-![Robot](VID-20260418-WA0004.mp4)
+![Robot](Media/VID-20260418-WA0004.mp4)
 
 This project represents a prototype of an autonomous maze-solving robot designed to navigate through complex paths and avoid obstacles. The robot uses sensors to detect walls and make real-time decisions while moving.
 The goal of this project is to simulate how intelligent robotic systems can autonomously explore unknown environments and find optimal paths.
@@ -27,7 +27,7 @@ Microcontroller (ESP32 or Arduino)
 Power supply (batteries)
 Optional: Flame sensor & buzzer (for extra features)
 
-##How the System Works
+## How the System Works
 
 The robot starts moving forward inside the maze.
 Ultrasonic sensors continuously measure distances from obstacles.

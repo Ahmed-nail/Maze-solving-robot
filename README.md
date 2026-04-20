@@ -1,25 +1,25 @@
 ## Maze solving robot and fire detected
 
 ## How to run code
-First check requirements folder to download the package that run esp32 on Arduino ide.
+To run this project, first navigate to the requirements folder and install the necessary packages for using the ESP32 with the Arduino IDE.
 
-then you can able run code from code file.
+Once the setup is complete, you can upload and run the code from the provided source files.
 
-## componants
+## Components
  
-- 2 DC motor 2 wheels 
-- Wires 
-- 3 ultrasonic sensor 
-- 1 servo motor 
-- 1 flame sensor 
-- 1 ESP 32 
-- 1 motor driver 
-- 1 buzzer 
-- 1 bread board 
+- 2 DC motors with wheels
+- Jumper wires
+- 3 Ultrasonic sensors
+- 1 Servo motor
+- 1 Flame sensor
+- 1 ESP32 microcontroller
+- 1 Motor driver module
+- 1 Buzzer
+- 1 Breadboard
 
-## Why this robot is useful?
+## Project Purpose
 
-It can move alone without joystick because (ultrasonic sensor) and detected the fire and make a little noise to know there is a fire .
+This robot is designed to operate autonomously without the need for manual control. Using ultrasonic sensors, it can navigate its environment and avoid obstacles. Additionally, the integrated flame sensor allows it to detect fire, while the buzzer provides an audible alert to indicate the presence of a flame.
 
 
 ## We can upgrade this project by 
